@@ -1,31 +1,27 @@
 <template>
     <div class="header">
-        <!-- 折叠按钮 -->
         <div class="collapse-btn" @click="collapseChage">
             <i v-if="!collapse" class="el-icon-s-fold"></i>
             <i v-else class="el-icon-s-unfold"></i>
         </div>
-        <div class="logo">非法集资预警平台</div>
+        <div class="logo">Library Management System</div>
         <div class="header-right">
             <div class="header-user-con">
-                <!-- 全屏显示 -->
                 <div class="btn-fullscreen" @click="handleFullScreen">
-                    <el-tooltip effect="dark" :content="fullscreen?`取消全屏`:`全屏`" placement="bottom">
+                    <el-tooltip effect="dark" :content="fullscreen?`cancel fullscreen`:`fullscreen`" placement="bottom">
                         <i class="el-icon-rank"></i>
                     </el-tooltip>
                 </div>
-                <!-- 用户头像 -->
                 <div class="user-avator">
                     <img src="../../assets/img/img.jpg" />
                 </div>
-                <!-- 用户名下拉菜单 -->
                 <el-dropdown class="user-name" trigger="click" @command="handleCommand">
                     <span class="el-dropdown-link">
                         {{username}}
                         <i class="el-icon-caret-bottom"></i>
                     </span>
                     <el-dropdown-menu slot="dropdown">
-                        <el-dropdown-item command="loginout">退出登录</el-dropdown-item>
+                        <el-dropdown-item command="loginout">Logout</el-dropdown-item>
                     </el-dropdown-menu>
                 </el-dropdown>
             </div>
@@ -50,19 +46,16 @@ export default {
         }
     },
     methods: {
-        // 用户名下拉菜单选择事件
         handleCommand(command) {
             if (command == 'loginout') {
                 localStorage.removeItem('ms_username');
                 this.$router.push('/login');
             }
         },
-        // 侧边栏折叠
         collapseChage() {
             this.collapse = !this.collapse;
             bus.$emit('collapse', this.collapse);
         },
-        // 全屏事件
         handleFullScreen() {
             let element = document.documentElement;
             if (this.fullscreen) {
