@@ -13,6 +13,7 @@ import java.util.Map;
 public class UserController {
     @Autowired
     private UserMapper userMapper;
+    @CrossOrigin
     @PostMapping("/adminstrator")
     public String loginByAdmin(@RequestBody Map<String,String> map){
         String username = map.get("accountNumber");

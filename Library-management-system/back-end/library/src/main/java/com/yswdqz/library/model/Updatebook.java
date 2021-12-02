@@ -3,7 +3,7 @@ package com.yswdqz.library.model;
 import lombok.Data;
 
 @Data
-public class Post {
+public class Updatebook {
     private Integer id;
-    private Integer commentId;
+    private String isbn;
 }

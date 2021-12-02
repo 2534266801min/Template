@@ -6,7 +6,7 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-public class BookComponent {
+public class Bookcomment {
     private Integer commentId;
     private Integer rate;
     private String content;
