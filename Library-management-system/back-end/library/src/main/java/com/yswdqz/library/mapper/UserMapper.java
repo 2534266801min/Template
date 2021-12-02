@@ -1,15 +1,19 @@
 package com.yswdqz.library.mapper;
 
 import com.yswdqz.library.model.Administrator;
+import com.yswdqz.library.model.Reader;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
 @Mapper
 public interface UserMapper {
     @Select("select * from Administrator" +
-            " where name =#{username}" +
+            " where accountNumber =#{accountNumber}" +
             " and password = #{password}")
-    Administrator loginByAdmin(String username, String password);
+    Administrator loginByAdmin(String accountNumber, String password);
 
-    Integer loginByReader(String username,String password);
+    @Select("select * from Reader" +
+            " where accountnumber =#{accountNumber}" +
+            " and password = #{password}")
+    Reader loginByReader(String accountNumber, String password);
 }

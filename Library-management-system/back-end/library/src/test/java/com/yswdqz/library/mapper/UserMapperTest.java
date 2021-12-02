@@ -1,6 +1,7 @@
 package com.yswdqz.library.mapper;
 
 import com.yswdqz.library.model.Administrator;
+import com.yswdqz.library.model.Reader;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,7 +15,7 @@ class UserMapperTest {
     private UserMapper userMapper;
     @Test
     void read() {
-        Administrator s = userMapper.loginByAdmin("Mik1e", "M85634");
+        Reader s = userMapper.loginByReader("Paul111", "Paul111");
 
         System.out.println(s);
     }
