@@ -4,27 +4,18 @@
 			<div class="ms-title">Library Management System</div>
 			<el-form :model="param" :rules="rules" ref="login" label-width="0px" class="ms-content">
 				<el-form-item prop="username">
-					<el-input v-model="param.username" placeholder="用户名">
+					<el-input v-model="param.username" placeholder="username">
 						<el-button slot="prepend" icon="el-icon-lx-people"></el-button>
 					</el-input>
 				</el-form-item>
 				<el-form-item prop="password">
-					<el-input type="password" placeholder="密码" v-model="param.password"
+					<el-input type="password" placeholder="password" v-model="param.password"
 						@keyup.enter.native="submitForm()">
 						<el-button slot="prepend" icon="el-icon-lx-lock"></el-button>
 					</el-input>
 				</el-form-item>
-				<el-form-item prop="captcha" class="captcha-block">
-					<el-input v-model="param.captcha" placeholder="验证码" class="captcha-input">
-						<el-button slot="prepend" icon="el-icon-key"></el-button>
-					</el-input>
-					<img :src="captchaImg" class="captcha-img" @click="changeCaptchaImg()" title="点击切换验证码">
-				</el-form-item>
 				<div class="login-btn">
-					<el-button type="primary" @click="submitForm()">登录</el-button>
-				</div>
-				<div class="login-btn">
-					<el-button type="info" @click="toRegister()">注册</el-button>
+					<el-button type="primary" @click="submitForm()">Login</el-button>
 				</div>
 			</el-form>
 		</div>
@@ -33,8 +24,7 @@
 
 <script>
 	import {
-		login,
-		getCaptcha
+		login
 	} from '../../api/index';
 	import {
 		sha256
@@ -42,48 +32,32 @@
 	export default {
 		data: function() {
 			return {
-				captchaImg: '',
 				param: {
 					username: '',
 					password: '',
-					captcha: '',
 				},
 				rules: {
 					username: [{
 						required: true,
-						message: '请输入用户名',
+						message: 'Please input username',
 						trigger: 'blur'
 					}],
 					password: [{
 						required: true,
-						message: '请输入密码',
-						trigger: 'blur'
-					}],
-					captcha: [{
-						required: true,
-						message: '请输入验证码',
+						message: 'Please input password',
 						trigger: 'blur'
 					}],
 				},
 			};
 		},
 		methods: {
-			changeCaptchaImg() {
-				getCaptcha().then(res => {
-					this.captchaImg = 'data:image/jpeg;base64,' + res.image_base,
-						this.param.ima_id = res.id
-				}).catch(err => {
-					this.$message.error(err.msg);
-					return false;
-				})
-			},
 			submitForm() {
 				this.$refs.login.validate(valid => {
 					if (valid) {
 						this.param.password = sha256('this.param.password');
 						login(this.param).then((res) => {
 							if (res.code === 200) {
-								this.$message.success('登录成功');
+								this.$message.success('success');
 								localStorage.setItem('ms_username', this.param.username);
 								localStorage.setItem("token", res.data.token);
 								console.log(res.data.token)
@@ -91,33 +65,18 @@
 								return true;
 							} else {
 								this.$message.error(res.msg);
-								this.changeCaptchaImg()
 								return false;
 							}
 						}).catch(err => {
 							this.$message.error(err.msg);
-							this.changeCaptchaImg()
 							return false;
 						})
 					} else {
-						this.$message.error('请输入账号和密码');
-						this.changeCaptchaImg()
+						this.$message.error('Please input your username and password');
 						return false;
 					}
 				});
-			},
-			toRegister() {
-				this.$router.push('/register');
 			}
-		},
-		created() {
-			getCaptcha().then(res => {
-				this.captchaImg = 'data:image/jpeg;base64,' + res.image_base,
-					this.param.ima_id = res.id
-			}).catch(err => {
-				this.$message.error(err.msg);
-				return false;
-			})
 		}
 	};
 </script>
@@ -169,19 +128,5 @@
 		font-size: 12px;
 		line-height: 30px;
 		color: #fff;
-	}
-
-	.captcha-block {
-		.captcha-input {
-			width: 58%;
-			justify-content: flex-start;
-		}
-
-		.captcha-img {
-			height: 30px;
-			width: 24%;
-			vertical-align: middle;
-			margin-left: 50px;
-		}
 	}
 </style>

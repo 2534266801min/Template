@@ -10,9 +10,6 @@ export const login = user => {
 export const register = user => {
 	return http('POST', '/user/register/', user, 1);
 }
-export const getCaptcha = () => {
-	return http('GET', '/user/images/');
-}
 export const upForcastData = data => {
 	return http('POST', '/test/upload/', data, 2);
 }
@@ -22,7 +19,6 @@ export const upload = data => {
 export const getdash = () => {
 	return http('GET', '/console/');
 }
-
 export const getpie = () => {
 	return http('GET', '/train/companyInfo/');
 }
