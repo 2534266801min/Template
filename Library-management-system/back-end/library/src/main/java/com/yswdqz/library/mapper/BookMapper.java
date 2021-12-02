@@ -14,7 +14,8 @@ public interface BookMapper {
     @Delete("delete from book where isbn = #{isbn}")
     Integer deleteBook(String isbn);
 
-    @Update("update book set isbn =#{book.isbn},author = #{book.author}" +
-            ",title = #{book.title} ")
+    @Update("update book set author = #{book.author}" +
+            ",title = #{book.title},publisher = #{book.publisher}, " +
+            "booktype = #{book.booktype} where isbn = #{book.isbn}")
     Integer updateBook(@Param("book") Book book);
 }

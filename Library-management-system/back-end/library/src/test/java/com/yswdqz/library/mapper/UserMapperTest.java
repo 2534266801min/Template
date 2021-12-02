@@ -18,14 +18,14 @@ class UserMapperTest {
     private BookMapper bookMapper;
     @Test
     void read() {
-//        Book book = new Book();
-//        book.setBooktype("1");
-//        book.setAuthor("1");
-//        book.setIsbn("1");
-//        book.setPublisher("1");
-//        book.setTitle("1");
-//
-//        bookMapper.insertBook(book);
-        bookMapper.deleteBook("1");
+        Book book = new Book();
+        book.setBooktype("2");
+        book.setAuthor("1");
+        book.setIsbn("1");
+        book.setPublisher("1");
+        book.setTitle("1");
+
+        bookMapper.updateBook(book);
+
     }
 }
